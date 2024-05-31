@@ -1,3 +1,9 @@
+const quoteContainer = document.getElementById("quote-container");
+const quoteText = document.getElementById("quote");
+const quoteAuthor = document.getElementById("author");
+const twitterBtn = document.getElementById("twitter");
+const newQuoteBtn = document.getElementById('new-quote');
+
 // Get Quotes From API
 // An asyncrounous function can run at any time independently and won't stop the browser from completely loading the page
 
@@ -7,7 +13,19 @@ let apiQuotes = [];
 // Show new quote
 function newQuote() {
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  console.log(quote);
+  // Check if author field is blank and replace it with "unknown"
+  if (!quote.author) {
+    quoteAuthor.textContent = 'Unknown';
+  } else {
+    quoteAuthor.textContent = quote.author;
+  }
+  // Check quote length to determine styling
+  if (quote.text.length > 100) {
+    quoteText.classList.add("long-quote");
+  } else {
+    quoteText.classList.remove("long-quote");
+  }
+  quoteText.textContent = quote.text;
 }
 
 async function getQuotes() {
