@@ -3,6 +3,7 @@ const quoteText = document.getElementById("quote");
 const quoteAuthor = document.getElementById("author");
 const twitterBtn = document.getElementById("twitter");
 const newQuoteBtn = document.getElementById('new-quote');
+const loader = document.getElementById("loader");
 
 // Get Quotes From API
 // An asyncrounous function can run at any time independently and won't stop the browser from completely loading the page
@@ -10,8 +11,22 @@ const newQuoteBtn = document.getElementById('new-quote');
 // Use "let" because we will change the value later on
 let apiQuotes = [];
 
+// Show loading
+function loading() {
+  // When the loader is loading, only the loader shows up
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+
+// Hide loading
+function loadingComplete() {
+  quoteContainer.hidden = false;
+  loader.hidden = true;
+}
+
 // Show new quote
 function newQuote() {
+  loading();
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
   // Check if author field is blank and replace it with "unknown"
   if (!quote.author) {
@@ -25,10 +40,14 @@ function newQuote() {
   } else {
     quoteText.classList.remove("long-quote");
   }
+  // Set Quote, Hide Loader
   quoteText.textContent = quote.text;
+  loadingComplete();
 }
 
 async function getQuotes() {
+  // The loading() function can probably be seen only once because after the first fetch request, the API is stored locally in the apiQuotes variable
+  loading();
     const apiUrl =
       "https://jacintodesign.github.io/quotes-api/data/quotes.json";
     try {
