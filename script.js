@@ -5,49 +5,43 @@ const twitterBtn = document.getElementById("twitter");
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById("loader");
 
-// Get Quotes From API
-// An asyncrounous function can run at any time independently and won't stop the browser from completely loading the page
-
-// Use "let" because we will change the value later on
 let apiQuotes = [];
 
-// Show loading
-function loading() {
+function showLoadingSpinner() {
   // When the loader is loading, only the loader shows up
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 
-// Hide loading
-function loadingComplete() {
+function hideLoadingSpinner() {
   quoteContainer.hidden = false;
   loader.hidden = true;
 }
 
 // Show new quote
 function newQuote() {
-  loading();
+  showLoadingSpinner();
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  // Check if author field is blank and replace it with "unknown"
+  // Check if author field is blank and replace it with "Unknown"
   if (!quote.author) {
     quoteAuthor.textContent = 'Unknown';
   } else {
     quoteAuthor.textContent = quote.author;
   }
-  // Check quote length to determine styling
+  // Dynamically reduce font size for long quotes
   if (quote.text.length > 100) {
     quoteText.classList.add("long-quote");
   } else {
     quoteText.classList.remove("long-quote");
   }
-  // Set Quote, Hide Loader
+  // Set quote, hide loader
   quoteText.textContent = quote.text;
-  loadingComplete();
+  hideLoadingSpinner();
 }
 
-async function getQuotes() {
-  // The loading() function can probably be seen only once because after the first fetch request, the API is stored locally in the apiQuotes variable
-  loading();
+// Get quote from API
+async function getQuote() {
+  showLoadingSpinner();
     const apiUrl =
       "https://jacintodesign.github.io/quotes-api/data/quotes.json";
     try {
@@ -65,9 +59,9 @@ function tweetQuote() {
   window.open(twitterUrl, '_blank');
 }
 
-// Event Listeners
+// Event listeners
 newQuoteBtn.addEventListener('click', newQuote);
 twitterBtn.addEventListener("click", tweetQuote);
 
 // On load
-getQuotes();
+getQuote();
