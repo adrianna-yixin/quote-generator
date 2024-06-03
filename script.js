@@ -1,9 +1,9 @@
-const quoteContainer = document.getElementById("quote-container");
-const quoteText = document.getElementById("quote");
-const quoteAuthor = document.getElementById("author");
-const twitterBtn = document.getElementById("twitter");
+const quoteContainer = document.getElementById('quote-container');
+const quoteText = document.getElementById('quote');
+const quoteAuthor = document.getElementById('author');
+const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
-const loader = document.getElementById("loader");
+const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
@@ -30,9 +30,9 @@ function newQuote() {
   }
   // Dynamically reduce font size for long quotes
   if (quote.text.length > 100) {
-    quoteText.classList.add("long-quote");
+    quoteText.classList.add('long-quote');
   } else {
-    quoteText.classList.remove("long-quote");
+    quoteText.classList.remove('long-quote');
   }
   // Set quote, hide loader
   quoteText.textContent = quote.text;
@@ -42,15 +42,15 @@ function newQuote() {
 // Get quote from API
 async function getQuote() {
   showLoadingSpinner();
-    const apiUrl =
-      "https://jacintodesign.github.io/quotes-api/data/quotes.json";
-    try {
-      const response = await fetch(apiUrl);
-      apiQuotes = await response.json();
-      newQuote();
-    } catch (error) {
-        console.error();
-    }
+  const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
+  try {
+    const response = await fetch(apiUrl);
+    apiQuotes = await response.json();
+    newQuote();
+  } catch (error) {
+    newQuote();
+    console.error();
+  }
 }
 
 // Tweet a quote
@@ -61,7 +61,7 @@ function tweetQuote() {
 
 // Event listeners
 newQuoteBtn.addEventListener('click', newQuote);
-twitterBtn.addEventListener("click", tweetQuote);
+twitterBtn.addEventListener('click', tweetQuote);
 
 // On load
 getQuote();
