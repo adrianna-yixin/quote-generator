@@ -5,7 +5,9 @@ The Quote Generator is a simple web application that displays a random quote eac
 - **Twitter Integration**: Allows users to tweet the displayed quote with a single click.
 - **Responsive Design**: Accessible on various devices.
 ## 🚀 Getting Started
-### How to Use
+### Access the Web Page
+You can access the live web page directly at: [Quote Generator](https://adrianna-yixin.github.io/quote-generator/).
+### How to Use Locally
 1. Clone the repository:
 `git clone https://github.com/your-username/quote-generator.git`
 2. Open index.html in your browser.
